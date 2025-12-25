@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: traffic-gen-pod
+  labels:
+    app: traffic-genenator
+spec:
+  containers:
+  - name: traffic-gen-container
+    image: selcouthonism/traffic-generator:1.0.0
+    args:
+    # Find Cluster IP with 'kubectl get svc' command
+    #- '10.104.90.109/api'
+    - 'color-api-svc-clusterip/api'
+    - '0.5'

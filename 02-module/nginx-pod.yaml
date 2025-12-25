@@ -1,0 +1,15 @@
+# For documrentation, equivalent to the imperative command:
+# kubectl run nginx-pod --image=nginx:latest --port=80
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+  # A Pod can host multiple containers
+    - name: nginx-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80

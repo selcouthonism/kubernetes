@@ -1,1 +1,3 @@
-# kubernetes
+# Kubernetes Project
+
+This repository is a comprehensive Kubernetes learning and reference project covering core and advanced Kubernetes features. It includes clear explanations, best practices, and real-world usage patterns for cluster operations, networking, workloads, security, and observability. Each topic is accompanied by practical kubectl and YAML examples to support hands-on learning. The project is designed for engineers preparing for production use, interviews, or Kubernetes certifications.
