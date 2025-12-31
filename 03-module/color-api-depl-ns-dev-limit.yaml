@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: color-api-deployment
+  namespace: dev
+  labels:
+    app: color-api
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: color-api
+  template:
+    metadata:
+      labels:
+        app: color-api
+    spec:
+      containers:
+        - name: color-api
+          #image: selcouthonism/color-api-image:1.0.0
+          image: selcouthonism/color-api-image:1.1.0
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "200m"        # Request 200m CPU
+              memory: "256Mi"    # Request 256Mi memory
+            limits:
+              cpu: "500m"        # Limit to 500m CPU
+              memory: "512Mi"    # Limit to 512Mi memory

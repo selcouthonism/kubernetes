@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: prod-resource-quota
+  namespace: prod
+spec:
+  hard:
+    #pods: "10" # Maximum number of Pods allowed in the namespace
+    requests.cpu: "2" # Minimum CPU request of 2 cores for the namespace (2000m) (0.02=20m) m: millicores
+    requests.memory: 2Gi # Minimum Memory request of 2Gi for the namespace
+    limits.cpu: "4" # Maximum CPU limit of 4 cores for the namespace (4000m)
+    limits.memory: 4Gi # Maximum Memory limit of 4Gi for the namespace 

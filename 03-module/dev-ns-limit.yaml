@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-resource-quota
+  namespace: dev
+spec:
+  hard:
+    pods: "10" # Maximum number of Pods allowed in the namespace
+    requests.cpu: "1" # Minimum CPU request of 1 core for the namespace (1000m) (0.02=20m) m: millicores
+    requests.memory: 1Gi # Minimum Memory request of 1Gi for the namespace
+    limits.cpu: "2" # Maximum CPU limit of 2 cores for the namespace (2000m)
+    limits.memory: 2Gi # Maximum Memory limit of 2Gi for the namespace 
