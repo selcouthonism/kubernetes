@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: traffic-generator
+  labels:
+    app: traffic-generator
+spec:
+  containers:
+  - name: traffic-gen-container
+    image: selcouthonism/traffic-generator:1.0.0
+    args:
+    # <service-name>.<namespace>.svc.cluster.local/<path> <number-of-requests>
+    - 'color-api-svc.dev.svc.cluster.local/api'
+    - '1'
