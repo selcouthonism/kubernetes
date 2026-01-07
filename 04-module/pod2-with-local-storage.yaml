@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: local-storage-pod2
+spec:
+  containers:
+    - name: busybox-container
+      image: busybox:latest
+      command: ["sh", "-c", "sleep 3600"]
+      volumeMounts:
+        - name: local-storage
+          mountPath: /usr/share/busybox
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      volumeMounts:
+        - name: local-volume
+          mountPath: /mnt/local2  # mount path inside the container
+  volumes:
+    - name: local-volume
+      persistentVolumeClaim:
+        claimName: local-pvc  # must match the name of the PVC
