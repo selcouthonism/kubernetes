@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: color-ss
+spec:
+  serviceName: color-headless-svc # Headless service name must match
+  replicas: 3
+  selector:
+    matchLabels:
+      app: color-api
+  template:
+    metadata:
+      labels:
+        app: color-api
+    spec:
+      containers:
+        - name: color-container
+          image: selcouthonism/color-api-image:1.2.1
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: www-dummy-data
+              mountPath: /tmp/data
+  volumeClaimTemplates:
+    - metadata:
+        name: www-dummy-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 128Mi
+        volumeMode: Filesystem
