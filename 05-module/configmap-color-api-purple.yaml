@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: color-api-config-purple-as-env-variable
+data:
+  COLOR_CONFIG_PATH: /mnt/config/color.txt
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: color-api-config-purple-as-file
+data:
+  color.txt: purple
+  hello-from-purple.js: |
+    console.log("Hello from ");
+    console.log("the PURPLE config map!");

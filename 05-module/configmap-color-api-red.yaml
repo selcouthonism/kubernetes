@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: color-api-config-red
+data:
+  COLOR: red
+  #DEFAULT_COLOR: red
+  MULTILINE_VALUE: |
+    This is line one.
+    This is line two.
+    This is line three.
+  multiline.js: |
+    console.log("This is line one.");
+    console.log("This is line two.");
+    console.log("This is line three.");
