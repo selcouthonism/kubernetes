@@ -1,0 +1,18 @@
+# Important: Never store plaintext credentials in your configuration files.
+# Use SecretManager or Vault solutions for production environments.
+# Generate strong credentials
+# kubectl create secret generic db-root-creds \
+#  --from-literal=username="$(openssl rand -base64 16)" \
+#  --from-literal=password="$(openssl rand -base64 32)"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-root-creds
+  labels:
+    app: mongodb
+type: Opaque
+data:
+  # echo -n "root_user" | base64
+  username: cm9vdF91c2Vy
+  # echo -n "root_password" | base64
+  password: cm9vdF9wYXNzd29yZA==

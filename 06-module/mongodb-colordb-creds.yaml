@@ -1,0 +1,14 @@
+# Important: Never store plaintext credentials in your configuration files.
+# Use SecretManager or Vault solutions for production environments.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: colordb-app-creds
+  labels:
+    app: mongodb
+type: Opaque
+data:
+  # echo -n "colordb_user" | base64
+  username: Y29sb3JkYl91c2Vy # base64 for 'colordb_user'
+  # echo -n "colordb_password" | base64
+  password: Y29sb3JkYl9wYXNzd29yZA== # base64 for 'colordb_password'

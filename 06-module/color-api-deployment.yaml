@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: color-api
+  labels:
+    app: color-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: color-api
+  template:
+    metadata:
+      labels:
+        app: color-api
+    spec:
+      containers:
+        - name: color-api-container
+          image: selcouthonism/color-api-image:2.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: colordb-app-creds
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: colordb-app-creds
+                  key: password
+            - name: DB_HOST
+              value: "mongodb-ss-0.mongodb-svc.default.svc.cluster.local"
+            - name: DB_PORT
+              value: "27017"
+            - name: DB_NAME
+              value: "colordb"
+            - name: MONGODB_URL
+              value: "mongodb://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)"
+            - name: MONGODB_DB_NAME
+              value: $(DB_NAME)
+          startupProbe:
+            httpGet: 
+              path: /up
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: 
+              path: /ready
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: 
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 15 
+      restartPolicy: Always
