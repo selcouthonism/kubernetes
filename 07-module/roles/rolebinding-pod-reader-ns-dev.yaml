@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-reader-binding
+  namespace: dev # must match the Role's namespace
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pod-reader
+subjects:
+- kind: User
+  name: bob
+  apiGroup: rbac.authorization.k8s.io
+# Update: Adding ServiceAccount as a subject
+- kind: ServiceAccount
+  name: pod-inspector
+  namespace: dev # must match the ServiceAccount's namespace
