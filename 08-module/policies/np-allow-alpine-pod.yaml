@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-allow-alpine-pod
+spec:
+  podSelector:
+    matchLabels:
+      app: color-api
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: alpine-curl
+    - podSelector:
+        matchLabels:
+          tier: backend
+    - podSelector:
+        matchExpressions:
+        - key: environment
+          operator: In
+          values:
+          - dev
+          - staging
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: dev # Allow pods from 'dev' namespace.
+      podSelector:
+        matchLabels:
+          app: traffic-generator

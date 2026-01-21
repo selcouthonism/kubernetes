@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress
+spec:
+  podSelector:
+    matchLabels:
+      app: alpine-curl
+  policyTypes:
+  - Egress
+  egress:
+  #- to: []
+  #  ports:
+  #  - protocol: TCP
+  #    port: 443  # HTTPS
+  #  - protocol: UDP
+  #    port: 53   # DNS
+  - to:
+    - podSelector:
+        matchLabels:
+          app: color-api
